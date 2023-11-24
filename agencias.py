@@ -56,15 +56,14 @@ for filename in os.listdir(caminho_do_diretorio):
     if filename.endswith(".xlsx"):
         file_path = os.path.join(caminho_do_diretorio, filename)
         df = pd.read_excel(file_path, skiprows=9)
+        df['arquivo'] = file_path
         frames.append(df)
 
 # Concatene todos os DataFrames em um único DataFrame
 result_df = pd.concat(frames, ignore_index=True)
 result_df
 # Salve o DataFrame em um arquivo RDS
-result_df.to_pickle(os.path.join("data", "raw", "agencias.pkl"))
-result_df.to_parquet(caminho_do_arquivo_parquet, index=False).to_parquet(caminho_do_diretorio_parquet, index=False)
-
+result_df.to_csv(os.path.join("data", "raw", "agencias.csv"))
 
 for filename in os.listdir(caminho_do_diretorio):
     if os.path.isfile(os.path.join(caminho_do_diretorio, filename)):

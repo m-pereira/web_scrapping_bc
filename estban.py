@@ -6,6 +6,7 @@ import pandas as pd
 
 # Caminho do diretório que você deseja criar (substitua pelo caminho desejado)
 caminho_do_diretorio = os.getcwd()+'/data/zip'
+caminho_do_arquivo_parquet = os.getcwd()+'/data/raw'
 
 # Use os.makedirs() para criar o diretório
 if not os.path.exists(caminho_do_diretorio):
@@ -13,6 +14,14 @@ if not os.path.exists(caminho_do_diretorio):
     print("Diretório criado com sucesso.")
 else:
     print("O diretório já existe.")
+
+
+if not os.path.exists(caminho_do_arquivo_parquet):
+    os.makedirs(caminho_do_arquivo_parquet)
+    print("Diretório criado com sucesso.")
+else:
+    print("O diretório já existe.")
+
 
 # Vetor com as partes finais das URLs
 ano = 2023
@@ -60,9 +69,10 @@ for filename in os.listdir(caminho_do_diretorio):
 
 # Concatene todos os DataFrames em um único DataFrame
 result_df = pd.concat(frames, ignore_index=True)
-
+result_df
 # Salve o DataFrame em um arquivo RDS
+result_df
 result_df.to_pickle(os.path.join("data", "raw", "estban.pkl"))
-result_df.to_parquet(caminho_do_arquivo_parquet, index=False).to_parquet(caminho_do_arquivo_parquet, index=False)
-
+result_df.to_parquet(os.path.join("data", "raw", "estban.parquet"))
+result_df.to_csv(os.path.join("data", "raw", "estban.csv"))
 

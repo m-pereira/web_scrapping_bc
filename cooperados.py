@@ -56,15 +56,14 @@ for filename in os.listdir(caminho_do_diretorio):
     if filename.endswith(".csv"):
         file_path = os.path.join(caminho_do_diretorio, filename)
         df = pd.read_csv(file_path,sep = ";" ,skiprows=6, encoding='ISO-8859-1')
+        df['arquivo'] = file_path
         frames.append(df)
 
 # Concatene todos os DataFrames em um único DataFrame
 result_df = pd.concat(frames, ignore_index=True)
 result_df
 # Salve o DataFrame em um arquivo RDS
-result_df.to_pickle(os.path.join("data", "raw", "cooperados.pkl"))
-result_df.to_parquet(caminho_do_arquivo_parquet, index=False).to_parquet(caminho_do_diretorio_parquet, index=False)
-
+result_df.to_csv(os.path.join("data", "raw", "cooperados.csv"))
 
 for filename in os.listdir(caminho_do_diretorio):
     if os.path.isfile(os.path.join(caminho_do_diretorio, filename)):
